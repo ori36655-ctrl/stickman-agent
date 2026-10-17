@@ -1,0 +1,14 @@
+name: test-gemini
+on: workflow_dispatch
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Gemini
+        env:
+          KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent" \
+            -H "x-goog-api-key: $KEY" \
+            -H "Content-Type: application/json" \
+            -d '{"contents":[{"parts":[{"text":"Say hello in Hebrew in one short sentence"}]}]}'
